@@ -2,14 +2,37 @@
     <nav class="navbar navbar-expand-lg bg-body-tertiary w-100" data-bs-theme="dark">
         <div class="d-none d-lg-flex justify-content-between align-items-center text-white w-100 px-3">
             <div>
-                home
+                <a href="{% url 'home' %}" class="text-decoration-none link-light">
+                    خانه
+                </a>
             </div>
-            <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
-            <div>
-                profile
+            <div class="d-flex align-items-center">
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+                {% if false %}
+                    <div class="d-flex align-items-center ms-3">
+                        <a href="{% url 'home' %}" class="text-decoration-none link-light">
+                            خروج
+                        </a>
+                        <div class="ms-3">
+                            ابوالفضل زراعتکار
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="d-flex align-items-center ms-3">
+                        <a href="" class="link-light text-decoration-none">
+                            ثبت نام
+                        </a>
+                        <span class="mx-1 text-white">
+                            /
+                        </span>
+                        <a href="" class="link-light text-decoration-none">
+                            ورود
+                        </a>
+                    </div>
+                {% endif %}
             </div>
         </div>
         <div class="container-fluid d-lg-none">
