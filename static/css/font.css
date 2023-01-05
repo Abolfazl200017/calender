@@ -1,0 +1,10 @@
+@font-face {
+    font-family: Vazir;
+    src: url('../font/Vazir-FD-WOL.eot') format(eof), url('../font/Vazir-FD-WOL.ttf') format(ttf), url('../font/Vazir-FD-WOL.woff') format(woff), url('../font/Vazir-FD-WOL.woff2') format(woff2);
+    font-weight: normal;
+}
+@font-face {
+    font-family: Vazir;
+    src: url('../font/Vazir-Bold-FD-WOL.eot') format(eof), url('../font/Vazir-Bold-FD-WOL.ttf') format(ttf), url('../font/Vazir-Bold-FD-WOL.woff') format(woff), url('../font/Vazir-Bold-FD-WOL.woff2') format(woff2);
+    font-weight: bold;
+}
