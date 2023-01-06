@@ -4,6 +4,6 @@
     <form action="" method="POST">
         {% csrf_token %}
         {{ form.as_p }}
-        <input type="submit" value="{% if type == 'signup' %}ثبت نام {% else %}ورود{% endif %}">
+        <input type="submit" value="{{ type }}">
     </form>
 {% endblock main %}
