@@ -7,11 +7,14 @@ from django.contrib import messages
 
 # Create your views here.
 def signup_user(request):
+    if request.user.is_authenticated:
+        return redirect('home')
     if(request.method=='POST'):
         f = RegisterUserForm(request.POST)
         if f.is_valid():
             cd = f.cleaned_data
             User.objects.create_user(cd['username'], '', cd['password'])
+            authenticate(username=cd['username'], password=cd['password'])
             messages.success(request, 'ورود شما با موفقیت انجام شد.', '✅')
             return redirect('home')
     else:
