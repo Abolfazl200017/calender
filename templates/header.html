@@ -1,5 +1,5 @@
-<header class="d-flex justify-content-center bg-body-tertiary" data-bs-theme="dark">
-    <nav class="navbar navbar-expand-lg bg-body-tertiary w-100" data-bs-theme="dark">
+<header class="d-flex justify-content-center bg-body-tertiary">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary w-100" style="max-width: 1350px;">
         <div class="d-none d-lg-flex justify-content-between align-items-center text-white w-100 px-3">
             <div>
                 <a href="{% url 'home' %}" class="text-decoration-none link-light">
@@ -11,9 +11,9 @@
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
-                {% if false %}
+                {% if request.user.is_authenticated %}
                     <div class="d-flex align-items-center ms-3">
-                        <a href="{% url 'home' %}" class="text-decoration-none link-light">
+                        <a href="{% url 'logout' %}" class="text-decoration-none link-light">
                             خروج
                         </a>
                         <div class="ms-3">
