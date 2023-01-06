@@ -6,7 +6,7 @@
                     خانه
                 </a>
                 {% if request.user.is_authenticated %}
-                    <div class="d-flex align-items-center ms-5">
+                    <div class="d-flex align-items-center ms-5" style="font-size: 0.9rem;">
                         <div class="me-3">
                             {{ request.user.username }}
                         </div>
@@ -15,7 +15,7 @@
                         </a>
                     </div>
                 {% else %}
-                    <div class="d-flex align-items-center ms-3">
+                    <div class="d-flex align-items-center ms-3" style="font-size: 0.9rem;">
                         <a href="{% url 'signup' %}" class="link-light text-decoration-none">
                             ثبت نام
                         </a>
