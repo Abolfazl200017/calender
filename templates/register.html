@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
 
 {% block main %}
-    <div class="text-white">
-        {{ type }}
-    </div>
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="{% if type == 'signup' %}ثبت نام {% else %}ورود{% endif %}">
+    </form>
 {% endblock main %}
