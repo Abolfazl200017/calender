@@ -24,15 +24,15 @@ def get_days():
     today = datetime.now().day
     for i in range(today):
         day = {
-            'num': i,
+            'num': i+1,
             'is_prev': True,
             'is_today': False,
         }
         days.append(day)
-    days.append({'num': today,'is_prev':False,'is_today':True})
-    for i in range(today+1, get_month_range()+1):
+    days.append({'num': today+1,'is_prev':False,'is_today':True})
+    for i in range(today+1, get_month_range()):
         day = {
-            'num': i,
+            'num': i+1,
             'is_prev': False,
             'is_today': False,
         }
