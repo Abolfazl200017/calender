@@ -1,41 +1,70 @@
 import calendar
-from datetime import datetime
+import datetime
+from datetime import date
 from webbrowser import get
+import jdatetime
+
+def get_month_range(date):
+    nextdate = date - jdatetime.timedelta(days=-29)
+    if nextdate.month == date.month +1:
+        return 29
+    else:
+        nextdate = nextdate - jdatetime.timedelta(days=-1)
+        if nextdate.month == date.month + 1:
+            return 30
+        else:
+            return 31
 
 def get_solar_calender_day(num):
     if num<5:
         return num+2
     else:
         return num-5
-# this function returns the first day of this month
-def get_start_day():
-    num = calendar.monthrange(year=datetime.now().year, month=datetime.now().month)[0]
+
+def get_calendar_req():
+    today = jdatetime.date.today()
+    first = date.today() - datetime.timedelta(days=today.day - 1)
+    firstday = date.weekday(first)
+    morange = get_month_range(today - jdatetime.timedelta(days=today.day - 1))
+    month=['فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور', 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند']
+    return {'firstdate': first, 'month': month[today.month + 1], 'morange': morange, 'firstday': get_solar_calender_day(firstday), 'today': today}
+
+def get_cal():
+    requirement = get_calendar_req()
+    print(requirement)
     days=[]
-    for i in range(get_solar_calender_day(num)):
-        days.append(i)
-    return days
-
-
-def get_month_range():
-    return calendar.monthrange(year=datetime.now().year, month=datetime.now().month)[1]
-
-def get_days():
-    days=[]
-    today = datetime.now().day
-    for i in range(today):
+    for i in range(requirement.today.day -1):
         day = {
+            'date': requirement.firstdate - datetime.timedelta(days=-i),
+            'jdate': requirement.today - jdatetime.timedelta(days=-i),
             'num': i+1,
             'is_prev': True,
             'is_today': False,
         }
         days.append(day)
-    days.append({'num': today+1,'is_prev':False,'is_today':True})
-    for i in range(today+1, get_month_range()):
+    days.append({
+        'date': requirement.firstdate - datetime.timedelta(days=-(requirement.today.day-1)),
+        'jdate': requirement.today - jdatetime.timedelta(days=-(requirement.today.day-1)),
+        'num': requirement.today.day,
+        'is_prev': False,
+        'is_today': True,
+    })
+    for i in range(requirement.today.day, requirement.morange):
         day = {
+            'date': requirement.firstdate - datetime.timedelta(days=-i),
+            'jdate': requirement.today - jdatetime.timedelta(days=-i),
             'num': i+1,
             'is_prev': False,
             'is_today': False,
         }
         days.append(day)
-
-    return days
+    startday=[]
+    for i in range(requirement.firstday):
+        startday.append(0)
+    context = {
+        'days': days,
+        'monthrange': requirement.morange,
+        'startday': startday,
+        'month': requirement.month,
+    }
+    return context
