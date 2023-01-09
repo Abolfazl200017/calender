@@ -1,18 +1,18 @@
 {% extends 'base.html' %}
 
 {% block main %}
-<h1>
+<h1 class="mx-auto text-white text text-center my-1 display-5">
   {{ month }}
 </h1>
-<div class="d-flex justify-content-center w-100 container-xxl">
-  <div class="w-75 border-start border-top d-flex flex-wrap">
+<div class="d-flex justify-content-center w-100 container-xxl mt-5">
+  <div class="w-75 border-start border-top d-flex flex-wrap bg-dark">
       {% for day in startday %}
       <div class="date-block border-end border-bottom"></div>  
       {% endfor %}
       {% for day in days %}
-      <div class="date-block border-end border-bottom">
+      <a class="date-block border-end border-bottom text-decoration-none text-white" href="day={{ day.num }}">
         {{ day.num }}
-      </div>
+      </a>
       {% endfor %}
     </div>
   </div>

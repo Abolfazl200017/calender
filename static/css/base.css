@@ -4,4 +4,10 @@
     align-items: center;
     justify-content: center;
     aspect-ratio: 1/1;
+    transition: all;
+    transition-timing-function: ease-in-out;
+    transition-duration: 100ms;
+}
+.date-block:hover{
+    background-color: rgb(10, 175, 147);
 }
