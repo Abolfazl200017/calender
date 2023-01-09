@@ -47,7 +47,8 @@ def add_todo(request, user_name, date, order):
                     f = CreateTodoForm(request.POST)
                     if f.is_valid():
                         cd = f.cleaned_data
-                        Todo.objects.create(user=request.user, title=cd['title'], body=cd['body'], date=date, time=order, private=cd['private'], exepts=cd['exepts'])
+                        Todo.objects.create(user=request.user, title=cd['title'], body=cd['body'], date=date, time=order, private=cd['private'])
+                        Todo.objects.filter(user=request.user, date=date, time=order).first().exepts.set(cd['exepts'])
                         messages.success(request, 'برنامه شما با موفقیت افزوده شد.', '✅')
                         return redirect('date', user_name=user_name, date=date)
                 else:
@@ -64,6 +65,7 @@ def edit_todo(request, user_name, date, order):
                 f = CreateTodoForm(request.POST, instance=todo)
                 if f.is_valid():
                     f.save()
+                    todo.exepts.set(f.cleaned_data['exepts'])
                     messages.success(request, 'ویرایش با موفقیت انجام شد.', '✅')
                     return redirect('date', user_name=user_name, date=date)
             else:

@@ -14,7 +14,8 @@ def signup_user(request):
             if f.is_valid():
                 cd = f.cleaned_data
                 User.objects.create_user(cd['username'], '', cd['password'])
-                authenticate(username=cd['username'], password=cd['password'])
+                user = authenticate(username=cd['username'], password=cd['password'])
+                login(request, user)
                 messages.success(request, 'ثبت نام شما با موفقیت انجام شد.', '✅')
                 return redirect('home')
         else:
