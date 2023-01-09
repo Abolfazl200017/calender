@@ -30,7 +30,7 @@ def get_calendar_req():
     first = date.today() - datetime.timedelta(days=today.day - 1)
     firstday = date.weekday(first)
     morange = get_month_range(today - jdatetime.timedelta(days=today.day - 1))
-    return {'firstdate': first, 'month': get_month_name(today.month-1), 'morange': morange, 'firstday': get_solar_calender_day(firstday), 'today': today}
+    return {'firstdate': first, 'month': get_month_name(today.month), 'morange': morange, 'firstday': get_solar_calender_day(firstday), 'today': today}
 
 def get_cal():
     requirement = get_calendar_req()

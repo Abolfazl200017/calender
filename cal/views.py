@@ -3,10 +3,9 @@ from django.shortcuts import render
 from . import utils
 
 # Create your views here.
-def callist(request):
+def callist(request, user_name):
     context = utils.get_cal()
     return render(request, 'cal.html', context=context)
 
-def showday(request, day_num):
-
-    return render(request, 'day_cal.html', {'day_num': day_num})
+def showday(request, date):
+    return render(request, 'day_cal.html', {'date': date})
