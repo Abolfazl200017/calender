@@ -16,3 +16,7 @@ def showday(request, user_name, date):
     d= jdatetime.date.fromgregorian(day=int(darr[2]), month=int(darr[1]), year=int(darr[0]))
     hours = utils.get_hours()
     return render(request, 'day_cal.html', {'date': d, 'hours': hours})
+
+def todo(request, user_name, date, order):
+
+    return 
