@@ -17,15 +17,15 @@
             </div>
         </div>
         <div class="w-100 row border border-top-0">
-            {% for hour in hours %}
+            {% for todo in todos %}
                 <div class="col-2 border-top border-end d-flex align-items-start justify-content-end">
-                    {{ hour }}
+                    {{ todo.0.hour }}
                 </div>
-                <a class="col-5 border-top border-end d-flex align-items-center py-3 text-decoration-none text-white ease-in-out todo-item" href="{{ hour }}">
-                    ملاقات با داداش
+                <a class="col-5 border-top border-end d-flex align-items-center py-3 text-decoration-none text-white ease-in-out todo-item" {% if todo.0.todo.islink %}href="{{ todo.0.hour }}"{% endif %}>
+                    {{ todo.0.todo.title }}
                 </a>
-                <a class="col-5 border-top d-flex align-items-center py-3 text-decoration-none text-white ease-in-out todo-item" href="{{ hour|add:12 }}">
-                    برنامه ای ندارد
+                <a class="col-5 border-top d-flex align-items-center py-3 text-decoration-none text-white ease-in-out todo-item" {% if todo.1.todo.islink %}href="{{ todo.1.hour }}"{% endif %}>
+                    {{ todo.1.todo.title }}
                 </a>
             {% endfor %}
         </div>
