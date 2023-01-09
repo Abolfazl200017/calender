@@ -21,4 +21,5 @@ urlpatterns = [
     path('', include('home.urls'), name='home'),
     path('<str:user_name>/cal/', include('cal.urls'), name='cal'),
     path('register/', include('accounts.urls'), name='accounts'),
+    path('<str:user_name>/cal/<str:date>/<int:order>/', include('todo.urls'), name='todo')
 ]
