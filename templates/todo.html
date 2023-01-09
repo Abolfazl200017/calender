@@ -1,7 +1,10 @@
 {% extends 'base.html' %}
 
 {% block main %}
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="add">
+    <div>
+        {{ title }}
+    </div>
+    <div>
+        {{ body }}
+    </div>
 {% endblock main %}
