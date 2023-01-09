@@ -46,7 +46,7 @@ def get_cal():
         }
         days.append(day)
     days.append({
-        'date': requirement['firstdate'] - datetime.timedelta(days=-(requirement['today'].day-1)),
+        'date': str(requirement['firstdate'] - datetime.timedelta(days=-(requirement['today'].day-1))),
         'jdate': requirement['today'] - jdatetime.timedelta(days=-(requirement['today'].day-1)),
         'num': requirement['today'].day,
         'is_prev': False,

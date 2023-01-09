@@ -3,6 +3,8 @@
 {% block main %}
 <h1 class="mx-auto text-white text text-center mt-1 display-6 d-flex align-items-center justify-content-center">
   {{ month }} {{ year }}
+   - 
+  {{ user_name }}
 </h1>
 <div class="d-flex justify-content-center w-100 container-xxl my-5">
   <div class="w-75 border-start border-top d-flex flex-wrap bg-dark">
@@ -10,7 +12,7 @@
       <div class="date-block border-end border-bottom"></div>  
       {% endfor %}
       {% for day in days %}
-      <a class="date-block border-end border-bottom text-decoration-none text-white {% if day.is_prev %}opacity-50{% endif %} {% if day.is_today %}bg-info{% endif %}" href="{{ day.date }}">
+      <a class="date-block border-end border-bottom text-decoration-none text-white {% if day.is_prev %}opacity-50{% endif %} {% if day.is_today %}bg-info{% endif %}" href="{{ day.date|date:'c' }}">
         {{ day.num }}
       </a>
       {% endfor %}

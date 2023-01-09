@@ -6,4 +6,3 @@ def go_home(request):
         return redirect('cal', str(request.user.username))
     else:
         return redirect('login')
-    return render(request, 'home.html')
