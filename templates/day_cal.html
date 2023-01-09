@@ -21,11 +21,11 @@
                 <div class="col-2 border-top border-end d-flex align-items-start justify-content-end">
                     {{ todo.0.hour }}
                 </div>
-                <a class="col-5 border-top border-end d-flex align-items-center py-3 text-decoration-none text-white ease-in-out todo-item" {% if todo.0.todo.islink %}href="{{ todo.0.hour }}"{% endif %}>
-                    {{ todo.0.todo.title }}
+                <a class="col-5 border-top border-end d-flex align-items-center py-3 text-decoration-none text-white ease-in-out todo-item" href="{{ todo.0.hour }}">
+                    {{ todo.0.title }}
                 </a>
-                <a class="col-5 border-top d-flex align-items-center py-3 text-decoration-none text-white ease-in-out todo-item" {% if todo.1.todo.islink %}href="{{ todo.1.hour }}"{% endif %}>
-                    {{ todo.1.todo.title }}
+                <a class="col-5 border-top d-flex align-items-center py-3 text-decoration-none text-white ease-in-out todo-item" href="{{ todo.1.hour }}">
+                    {{ todo.1.title }}
                 </a>
             {% endfor %}
         </div>

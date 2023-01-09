@@ -72,9 +72,3 @@ def get_cal():
         'year': requirement['today'].year,
     }
     return context
-
-def get_hours():
-    hours = []
-    for i in range(12):
-        hours.append(i+1)
-    return hours

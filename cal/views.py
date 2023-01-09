@@ -16,25 +16,16 @@ def get_jdate(date):
     darr = date.split('-')
     return jdatetime.date.fromgregorian(day=int(darr[2]), month=int(darr[1]), year=int(darr[0]))
 
-def get_todo(userid, date, i):
-    todo = Todo.objects.filter(user=userid, date=date, time=i+1).first()
+def get_title(userid, date, i):
+    todo = Todo.objects.filter(user=userid, date=date, time=i).first()
     if todo is None:
-        todo = {
-            'title': 'برنامه‌ای ثبت نشده است.',
-            'islink': False,
-        }
+        title = 'برنامه‌ای ثبت نشده است'
     else:
         if todo.private:
-            todo = {
-                'title': 'برنامه شخصی.',
-                'islink': False,
-            }
+            title = 'برنامه شخصی'
         else:
-            todo = {
-                'title': todo.title,
-                'islink': True,
-            }
-    return todo
+            title = todo.title
+    return title
 
 def get_day_todos(user_name, date):
     userid = User.objects.get(username=user_name).id
@@ -44,12 +35,12 @@ def get_day_todos(user_name, date):
         todo = []
         tmp={
             'hour': i+1,
-            'todo': get_todo(userid, date, i),
+            'title': get_title(userid, date, i+1),
         }
         todo.append(tmp)
         tmp={
             'hour': i+13,
-            'todo': get_todo(userid, date, i+12),
+            'title': get_title(userid, date, i+13),
         }
         todo.append(tmp)
         todos.append(todo)
@@ -57,6 +48,5 @@ def get_day_todos(user_name, date):
 
 def showday(request, user_name, date):
     d= get_jdate(date)
-    hours = utils.get_hours()
     todos = get_day_todos(user_name, date)
-    return render(request, 'day_cal.html', {'date': d, 'hours': hours, 'todos': todos}) 
+    return render(request, 'day_cal.html', {'date': d, 'todos': todos}) 

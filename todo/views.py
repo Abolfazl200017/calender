@@ -30,7 +30,10 @@ def show_todo(request, user_name, date, order):
         }
         return render(request, 'todo.html', context=context)
     else:
-        return redirect('date', user_name=user_name, date=date)
+        if userid == request.user.id:
+            return redirect('add_todo', user_name=user_name, date=date, order=order)
+        else:
+            return redirect('date', user_name=user_name, date=date)
 
 def add_todo(request, user_name, date, order):
     if request.user.is_authenticated:
