@@ -22,13 +22,17 @@ def show_todo(request, user_name, date, order):
     userid = User.objects.get(username=user_name).id
     todo = Todo.objects.filter(user=userid, date=date, time=order).first()
     if todo is not None:
-        context = {
-            'title': todo.title,
-            'body': todo.body,
-            'date': get_jdate(date),
-            'isowner': request.user.username==user_name,
-        }
-        return render(request, 'todo.html', context=context)
+        # if  todo.private or todo.exepts.filter(request.user.id) is not None or request.user.id==userid: 
+        if (request.user in todo.exepts.all()) or not todo.private or request.user.id==userid:
+            context = {
+                'title': todo.title,
+                'body': todo.body,
+                'date': get_jdate(date),
+                'isowner': request.user.username==user_name,
+            }
+            return render(request, 'todo.html', context=context)
+        else:
+            return redirect('date', user_name=user_name, date=date)
     else:
         if userid == request.user.id:
             return redirect('add_todo', user_name=user_name, date=date, order=order)
