@@ -1,3 +1,4 @@
+from re import T
 from webbrowser import get
 from django.shortcuts import redirect, render
 from .forms import CreateTodoForm
@@ -30,18 +31,36 @@ def show_todo(request, user_name, date, order):
 
 def add_todo(request, user_name, date, order):
     if request.user.is_authenticated:
-        if request.user.username == user_name:   
-            if request.method == "POST":
-                f = CreateTodoForm(request.POST)
-                if f.is_valid():
-                    cd = f.cleaned_data
-                    Todo.objects.create(user=request.user, title=cd['title'], body=cd['body'], date=date, time=order, private=cd['private'], exepts=cd['exepts'])
-                    messages.success(request, 'برنامه شما با موفقیت افزوده شد.', '✅')
-                    return redirect('date', user_name=user_name, date=date)
+        userid = User.objects.get(username=user_name).id
+        if request.user.id == userid:
+            todos =  Todo.objects.filter(user=userid, date=date, time=order)
+            if todos is not None:
+                return redirect('edit_todo', user_name=user_name, date=date, order=order)
             else:
-                f = CreateTodoForm()
-            return render(request, 'add_todo.html', {'form': f})
+                if request.method == "POST":
+                    f = CreateTodoForm(request.POST)
+                    if f.is_valid():
+                        cd = f.cleaned_data
+                        Todo.objects.create(user=request.user, title=cd['title'], body=cd['body'], date=date, time=order, private=cd['private'], exepts=cd['exepts'])
+                        messages.success(request, 'برنامه شما با موفقیت افزوده شد.', '✅')
+                        return redirect('date', user_name=user_name, date=date)
+                else:
+                    f = CreateTodoForm()
+                return render(request, 'add_todo.html', {'form': f, 'isedit': False})
     return redirect('date', user_name=user_name, date=date)
 
 def edit_todo(request, user_name, date, order):
-    return redirect('home')
+    if request.user.is_authenticated:
+        userid = User.objects.get(username=user_name).id
+        if request.user.id == userid:
+            todo =  Todo.objects.filter(user=userid, date=date, time=order)[0]
+            if request.method == "POST":
+                f = CreateTodoForm(request.POST, instance=todo)
+                if f.is_valid():
+                    f.save()
+                    messages.success(request, 'ویرایش با موفقیت انجام شد.', '✅')
+                    return redirect('date', user_name=user_name, date=date)
+            else:
+                f = CreateTodoForm(instance=todo)
+            return render(request, 'add_todo.html', {'form': f, 'isedit':True})
+    return redirect('date', user_name=user_name, date=date)
