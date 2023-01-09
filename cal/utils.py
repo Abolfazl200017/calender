@@ -73,3 +73,8 @@ def get_cal():
     }
     return context
 
+def get_hours():
+    hours = []
+    for i in range(12):
+        hours.append(i+1)
+    return hours

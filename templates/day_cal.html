@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block main %}
-    <h1 class="display-1">
+    <h1 class="display-1 text-center">
         {{ date }}
     </h1>
     <div class="w-100 container-xxl d-flex justify-content-center flex-wrap text-white">
@@ -16,16 +16,18 @@
                 بعد از ظهر
             </div>
         </div>
-        <div class="w-100 row">
-            <div class="col-2 border-top border-end d-flex align-items-start justify-content-end">
-                ۱
-            </div>
-            <a class="col-5 border-top border-end d-flex align-items-center py-3 text-decoration-none text-white ease-in-out todo-item">
-                ملاقات با داداش
-            </a>
-            <a class="col-5 border-top d-flex align-items-center py-3 text-decoration-none text-white ease-in-out todo-item">
-                برنامه ای ندارد
-            </a>
+        <div class="w-100 row border border-top-0">
+            {% for hour in hours %}
+                <div class="col-2 border-top border-end d-flex align-items-start justify-content-end">
+                    {{ hour }}
+                </div>
+                <a class="col-5 border-top border-end d-flex align-items-center py-3 text-decoration-none text-white ease-in-out todo-item">
+                    ملاقات با داداش
+                </a>
+                <a class="col-5 border-top d-flex align-items-center py-3 text-decoration-none text-white ease-in-out todo-item">
+                    برنامه ای ندارد
+                </a>
+            {% endfor %}
         </div>
     </div>
 {% endblock main %}
