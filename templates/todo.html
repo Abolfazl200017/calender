@@ -1,16 +1,28 @@
 {% extends 'base.html' %}
 
 {% block main %}
-    <div class="w-100 d-flex justify-content-center align-items-center pt-5">
+    <div class="w-100 d-flex flex-column align-items-center pt-5">
         <div class="w-50 rounded-2 bg-dark">
-            <div class="w-100 p-3 border-bottom">
-                عنوان : 
-                {{ title }}
+            <div class="d-flex justify-content-between w-100 p-3 border-bottom">
+                <div class="">
+                    عنوان : 
+                    {{ title }}
+                </div>
+                <div class="text-center">
+                    {{ date }}
+                </div>
             </div>
             <div class="w-100 p-3">
 
                 {{ body }}
             </div>
         </div>
+        {% if isowner %}
+            <div class="mt-2 w-50 d-flex flex-row-reverse">
+                <a href="edit" class="btn btn-light px-3 py-2">
+                    ویرایش
+                </a>
+            </div>
+        {% endif %}
     </div>
 {% endblock main %}

@@ -1,11 +1,21 @@
+from webbrowser import get
 from django.shortcuts import redirect, render
 from .forms import CreateTodoForm
 from .models import Todo
 from django.contrib import messages
 from django.contrib.auth.models import User
-
+import jdatetime
 
 # Create your views here.
+def get_jdate(date):
+    darr = date.split('-')
+    jdate= jdatetime.date.fromgregorian(day=int(darr[2]), month=int(darr[1]), year=int(darr[0]))
+    # days=['شنبه', 'یکشنبه', 'دوشنبه', 'سه‌شنبه', 'چهارشنبه', 'پنج‌شنبه', 'جمعه']
+    # day= days[jdatetime.weekday(jdate)]
+    # months = ['فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور', 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند']
+    # month= months[jdate]
+    # return {'weekday': day, 'day': jdate.day, 'month': month, 'year': jdate.year}
+    return jdate
 
 def show_todo(request, user_name, date, order):
     userid = User.objects.get(username=user_name).id
@@ -13,6 +23,8 @@ def show_todo(request, user_name, date, order):
     context = {
         'title': todo[0].title,
         'body': todo[0].body,
+        'date': get_jdate(date),
+        'isowner': request.user.username==user_name,
     }
     return render(request, 'todo.html', context=context)
 
