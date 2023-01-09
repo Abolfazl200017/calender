@@ -27,44 +27,44 @@ def get_calendar_req():
     firstday = date.weekday(first)
     morange = get_month_range(today - jdatetime.timedelta(days=today.day - 1))
     month=['فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور', 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند']
-    return {'firstdate': first, 'month': month[today.month + 1], 'morange': morange, 'firstday': get_solar_calender_day(firstday), 'today': today}
+    return {'firstdate': first, 'month': month[today.month], 'morange': morange, 'firstday': get_solar_calender_day(firstday), 'today': today}
 
 def get_cal():
     requirement = get_calendar_req()
     print(requirement)
     days=[]
-    for i in range(requirement.today.day -1):
+    for i in range(requirement['today'].day -1):
         day = {
-            'date': requirement.firstdate - datetime.timedelta(days=-i),
-            'jdate': requirement.today - jdatetime.timedelta(days=-i),
+            'date': requirement['firstdate'] - datetime.timedelta(days=-i),
+            'jdate': requirement['today'] - jdatetime.timedelta(days=-i),
             'num': i+1,
             'is_prev': True,
             'is_today': False,
         }
         days.append(day)
     days.append({
-        'date': requirement.firstdate - datetime.timedelta(days=-(requirement.today.day-1)),
-        'jdate': requirement.today - jdatetime.timedelta(days=-(requirement.today.day-1)),
-        'num': requirement.today.day,
+        'date': requirement['firstdate'] - datetime.timedelta(days=-(requirement['today'].day-1)),
+        'jdate': requirement['today'] - jdatetime.timedelta(days=-(requirement['today'].day-1)),
+        'num': requirement['today'].day,
         'is_prev': False,
         'is_today': True,
     })
-    for i in range(requirement.today.day, requirement.morange):
+    for i in range(requirement['today'].day, requirement['morange']):
         day = {
-            'date': requirement.firstdate - datetime.timedelta(days=-i),
-            'jdate': requirement.today - jdatetime.timedelta(days=-i),
+            'date': requirement['firstdate'] - datetime.timedelta(days=-i),
+            'jdate': requirement['today'] - jdatetime.timedelta(days=-i),
             'num': i+1,
             'is_prev': False,
             'is_today': False,
         }
         days.append(day)
     startday=[]
-    for i in range(requirement.firstday):
+    for i in range(requirement['firstday']):
         startday.append(0)
     context = {
         'days': days,
-        'monthrange': requirement.morange,
+        'monthrange': requirement['morange'],
         'startday': startday,
-        'month': requirement.month,
+        'month': requirement['month'],
     }
     return context
