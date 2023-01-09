@@ -22,6 +22,8 @@ def signup_user(request):
         return render(request, 'register.html', {'form': f, 'type': 'ثبت نام'})
 
 def login_user(request):
+    if request.user.is_authenticated:
+        return redirect('home')
     if request.method=="POST":
         f = RegisterUserForm(request.POST)
         if f.is_valid():
