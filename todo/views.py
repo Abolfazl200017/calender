@@ -20,20 +20,23 @@ def get_jdate(date):
 
 def show_todo(request, user_name, date, order):
     userid = User.objects.get(username=user_name).id
-    todo = Todo.objects.filter(user=userid, date=date, time=order)
-    context = {
-        'title': todo[0].title,
-        'body': todo[0].body,
-        'date': get_jdate(date),
-        'isowner': request.user.username==user_name,
-    }
-    return render(request, 'todo.html', context=context)
+    todo = Todo.objects.filter(user=userid, date=date, time=order).first()
+    if todo is not None:
+        context = {
+            'title': todo.title,
+            'body': todo.body,
+            'date': get_jdate(date),
+            'isowner': request.user.username==user_name,
+        }
+        return render(request, 'todo.html', context=context)
+    else:
+        return redirect('date', user_name=user_name, date=date)
 
 def add_todo(request, user_name, date, order):
     if request.user.is_authenticated:
         userid = User.objects.get(username=user_name).id
         if request.user.id == userid:
-            todos =  Todo.objects.filter(user=userid, date=date, time=order)
+            todos =  Todo.objects.filter(user=userid, date=date, time=order).first()
             if todos is not None:
                 return redirect('edit_todo', user_name=user_name, date=date, order=order)
             else:
@@ -53,7 +56,7 @@ def edit_todo(request, user_name, date, order):
     if request.user.is_authenticated:
         userid = User.objects.get(username=user_name).id
         if request.user.id == userid:
-            todo =  Todo.objects.filter(user=userid, date=date, time=order)[0]
+            todo =  Todo.objects.filter(user=userid, date=date, time=order).first()
             if request.method == "POST":
                 f = CreateTodoForm(request.POST, instance=todo)
                 if f.is_valid():
