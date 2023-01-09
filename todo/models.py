@@ -12,4 +12,4 @@ class Todo(models.Model):
     date = models.DateTimeField()
     time = models.CharField(max_length=2)
     private = models.BooleanField(default=False)
-    exepts = models.CharField(1)
+    exepts = models.CharField(max_length=200)
