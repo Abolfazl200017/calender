@@ -1,5 +1,5 @@
 from webbrowser import get
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from . import utils
 from datetime import datetime, date
 import jdatetime
@@ -8,9 +8,13 @@ from todo.models import Todo
 
 # Create your views here.
 def callist(request, user_name):
-    context = utils.get_cal()
-    context['user_name']= user_name
-    return render(request, 'cal.html', context=context)
+    user = User.objects.filter(username=user_name).first()
+    if user is not None:
+        context = utils.get_cal()
+        context['user_name']= user_name
+        return render(request, 'cal.html', context=context)
+    else:
+        return redirect('home')    
 
 def get_jdate(date):
     darr = date.split('-')

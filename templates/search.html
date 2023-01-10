@@ -1,0 +1,6 @@
+<form class="d-flex" role="search" action="{% url 'search' %}" method=POST>
+    {% csrf_token %}
+
+    <input class="form-control me-2" type="search" placeholder="جستجوی کاربر" aria-label="Search" name="searched">
+    <button class="btn btn-outline-success" type="submit">جستجو</button>
+</form>
