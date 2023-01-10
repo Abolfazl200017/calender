@@ -29,6 +29,7 @@ def show_todo(request, user_name, date, order):
                 'body': todo.body,
                 'date': get_jdate(date),
                 'isowner': request.user.username==user_name,
+                'isprivate': todo.private
             }
             return render(request, 'todo.html', context=context)
         else:

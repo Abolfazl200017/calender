@@ -13,11 +13,15 @@ def signup_user(request):
             f = RegisterUserForm(request.POST)
             if f.is_valid():
                 cd = f.cleaned_data
-                User.objects.create_user(cd['username'], '', cd['password'])
-                user = authenticate(username=cd['username'], password=cd['password'])
-                login(request, user)
-                messages.success(request, 'ثبت نام شما با موفقیت انجام شد.', '✅')
-                return redirect('home')
+                if User.objects.filter(username=cd['username']):
+                    messages.error(request, 'کاربری با نام کاربری زیر ثبت نام کرده است', '⚠️')
+                    return redirect('signup')
+                else:
+                    User.objects.create_user(cd['username'], '', cd['password'])
+                    user = authenticate(username=cd['username'], password=cd['password'])
+                    login(request, user)
+                    messages.success(request, 'ثبت نام شما با موفقیت انجام شد.', '✅')
+                    return redirect('home')
         else:
             f = RegisterUserForm()
         return render(request, 'register.html', {'form': f, 'type': 'ثبت نام'})
