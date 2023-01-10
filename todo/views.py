@@ -1,5 +1,3 @@
-from re import T
-from webbrowser import get
 from django.shortcuts import redirect, render
 from .forms import CreateTodoForm
 from .models import Todo
@@ -29,7 +27,9 @@ def show_todo(request, user_name, date, order):
                 'body': todo.body,
                 'date': get_jdate(date),
                 'isowner': request.user.username==user_name,
-                'isprivate': todo.private
+                'isprivate': todo.private,
+                'hour': order,
+                'exepts':todo.exepts.values
             }
             return render(request, 'todo.html', context=context)
         else:

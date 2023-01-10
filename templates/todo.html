@@ -3,22 +3,33 @@
 {% block main %}
     <div class="w-100 d-flex flex-column align-items-center pt-5">
         <div class="w-50 rounded-2 bg-dark">
-            <div class="d-flex justify-content-between w-100 p-3 border-bottom">
+            <div class="w-100 p-3 border-bottom">
+                <div class="text-center mb-1">
+                    {% if isprivate %}
+                    (خصوصی) __
+                    {% endif %}
+                    {{ hour|add:1 }}
+                    -
+                    {{ hour }}
+                    __
+                    {{ date }}
+                </div>
                 <div class="">
                     عنوان : 
                     {{ title }}
                 </div>
-                <div class="text-center">
-                    {{ date }}
-                </div>
             </div>
             <div class="w-100 p-3">
-
                 {{ body }}
             </div>
             {% if isowner %}
                 {% if isprivate %}
-                    hello
+                    <div class="w-100 p-3">
+                        قابل مشاهده برای : 
+                            {% for exept in exepts %}
+                                {{ exept.username }}
+                            {% endfor %}
+                    </div>
                 {% endif %}
             {% endif %}
         </div>
