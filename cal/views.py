@@ -27,18 +27,18 @@ def get_jdate(date):
     jdate['day']=today.day
     return jdate
 
-def get_title(userid, date, i):
+def get_title(request, userid, date, i):
     todo = Todo.objects.filter(user=userid, date=date, time=i).first()
     if todo is None:
         title = 'برنامه‌ای ثبت نشده است'
     else:
-        if todo.private:
-            title = 'برنامه شخصی'
-        else:
+        if todo.private and ((request.user.id==userid) or (request.user in todo.exepts.all())):
             title = todo.title
+        else:
+            title = 'برنامه شخصی'
     return title
 
-def get_day_todos(user_name, date):
+def get_day_todos(request, user_name, date):
     userid = User.objects.get(username=user_name).id
     todos=[]
 
@@ -46,12 +46,12 @@ def get_day_todos(user_name, date):
         todo = []
         tmp={
             'hour': i+1,
-            'title': get_title(userid, date, i+1),
+            'title': get_title(request, userid, date, i+1),
         }
         todo.append(tmp)
         tmp={
             'hour': i+13,
-            'title': get_title(userid, date, i+13),
+            'title': get_title(request, userid, date, i+13),
         }
         todo.append(tmp)
         todos.append(todo)
@@ -59,5 +59,5 @@ def get_day_todos(user_name, date):
 
 def showday(request, user_name, date):
     d= get_jdate(date)
-    todos = get_day_todos(user_name, date)
+    todos = get_day_todos(request, user_name, date)
     return render(request, 'day_cal.html', {'date': d, 'todos': todos}) 
