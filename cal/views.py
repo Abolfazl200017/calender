@@ -18,7 +18,14 @@ def callist(request, user_name):
 
 def get_jdate(date):
     darr = date.split('-')
-    return jdatetime.date.fromgregorian(day=int(darr[2]), month=int(darr[1]), year=int(darr[0]))
+    today = jdatetime.date.fromgregorian(day=int(darr[2]), month=int(darr[1]), year=int(darr[0]))
+    jdate = {}
+    days = ['شنبه', 'یکشنبه', 'دوشنبه', 'سه‌شنبه', 'چهارشنبه', 'پنجشنبه', 'جمعه']
+    jdate['weekday'] = days[today.weekday() -1] 
+    months=['فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور', 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند']
+    jdate['month']=months[today.month - 1]
+    jdate['day']=today.day
+    return jdate
 
 def get_title(userid, date, i):
     todo = Todo.objects.filter(user=userid, date=date, time=i).first()

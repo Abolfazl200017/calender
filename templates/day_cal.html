@@ -1,13 +1,15 @@
 {% extends 'base.html' %}
 
 {% block main %}
-    <h1 class="display-1 text-center">
-        {{ date }}
+    <h1 class="display-3 text-center">
+        {{ date.weekday }}
+         {{ date.day }}
+         {{ date.month }}
     </h1>
     <div class="w-100 container-xxl d-flex justify-content-center flex-wrap text-white">
         <div class="w-100 row bg-dark mt-5">
             <div class="col-2 d-flex align-items-center justify-content-center">
-                یکشنبه ۱۸ دی
+                ساعت
             </div>
             <div class="col-5 d-flex align-items-center justify-content-center">
                 صبح
