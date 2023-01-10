@@ -1,6 +1,6 @@
 <header class="d-flex justify-content-center bg-body-tertiary">
     <nav class="navbar navbar-expand-lg bg-body-tertiary w-100" style="max-width: 1350px;">
-        <div class="d-none d-lg-flex justify-content-between align-items-center text-white w-100 px-3">
+        {% comment %} <div class="d-none d-lg-flex justify-content-between align-items-center text-white w-100 px-3">
             <div class="d-flex align-items-center">
                 <a href="{% url 'home' %}" class="text-decoration-none link-light">
                     خانه
@@ -34,34 +34,36 @@
                     <button class="btn btn-outline-success" type="submit">جستجو</button>
                 </form>
             </div>
-        </div>
-        <div class="container-fluid d-lg-none">
-            <a class="navbar-brand" href="#">Navbar</a>
+        </div> {% endcomment %}
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'home' %}">خانه</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Dropdown
-                </a>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Action</a></li>
-                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="#">Something else here</a></li>
-                </ul>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link disabled">Disabled</a>
-                </li>
+                {% if request.user.is_authenticated %}
+                    <li class="d-flex flex-column flex-lg-row align-items-start align-items-lg-center ms-5 nav-link active">
+                        <div class="me-lg-3">
+                            {{ request.user.username }}
+                        </div>
+                        <a href="{% url 'logout' %}" class="text-decoration-none link-light text-small">
+                            خروج
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="d-flex flex-column flex-lg-row align-items-start align-items-lg-center ms-5 nav-link active">
+                        <a href="{% url 'signup' %}" class="link-light text-decoration-none">
+                            ثبت نام
+                        </a>
+                        <span class="mx-1 text-white">
+                            /
+                        </span>
+                        <a href="{% url 'login' %}" class="link-light text-decoration-none">
+                            ورود
+                        </a>
+                    </li>
+                {% endif %}
             </ul>
             <form class="d-flex" role="search">
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
