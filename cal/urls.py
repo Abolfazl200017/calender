@@ -3,6 +3,6 @@ from . import views
 
 
 urlpatterns = [
-    path('', views.callist, name='cal'),
+    path('list/<str:month_delta>/', views.callist, name='cal'),
     path('<str:date>/', views.showday, name='date'),
 ]

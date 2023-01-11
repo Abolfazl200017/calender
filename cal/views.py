@@ -7,18 +7,17 @@ from django.contrib.auth.models import User
 from todo.models import Todo
 
 # Create your views here.
-def callist(request, user_name):
+def callist(request, user_name, month_delta):
     user = User.objects.filter(username=user_name).first()
     if user is not None:
-        context = utils.get_cal()
+        context = utils.get_cal(month_delta)
         context['user_name']= user_name
         return render(request, 'cal.html', context=context)
     else:
         return redirect('home')    
 
 def get_jdate(date):
-    darr = date.split('-')
-    today = jdatetime.date.fromgregorian(day=int(darr[2]), month=int(darr[1]), year=int(darr[0]))
+    today = jdatetime.datetime.strptime(date, '%Y-%m-%d').date()
     jdate = {}
     days = ['شنبه', 'یکشنبه', 'دوشنبه', 'سه‌شنبه', 'چهارشنبه', 'پنجشنبه', 'جمعه']
     jdate['weekday'] = days[today.weekday() -1] 

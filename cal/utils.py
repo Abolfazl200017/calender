@@ -5,12 +5,12 @@ from webbrowser import get
 import jdatetime
 
 def get_month_range(date):
-    nextdate = date - jdatetime.timedelta(days=-29)
-    if nextdate.month == date.month +1:
+    nextdate = date + jdatetime.timedelta(days=29)
+    if nextdate.month != date.month:
         return 29
     else:
-        nextdate = nextdate - jdatetime.timedelta(days=-1)
-        if nextdate.month == date.month + 1:
+        nextdate = nextdate + jdatetime.timedelta(days=1)
+        if nextdate.month != date.month:
             return 30
         else:
             return 31
@@ -32,7 +32,7 @@ def get_calendar_req():
     morange = get_month_range(today - jdatetime.timedelta(days=today.day - 1))
     return {'firstdate': first, 'month': get_month_name(today.month), 'morange': morange, 'firstday': get_solar_calender_day(firstday), 'today': today}
 
-def get_cal():
+def get_cal_2():
     requirement = get_calendar_req()
     print(requirement)
     days=[]
@@ -72,3 +72,45 @@ def get_cal():
         'year': requirement['today'].year,
     }
     return context
+
+def get_cal(month_delta):
+    today = jdatetime.date.today()
+    md = int(month_delta)
+    firstday = get_first_day(month_delta)
+    monthrange = get_month_range(firstday)
+    days=[]
+    for i in range(monthrange):
+        day=dict()
+        day['date']= firstday+jdatetime.timedelta(days=i)
+        day['is_prev']= today>day['date']
+        day['is_today']= today==day['date']
+        days.append(day)
+    wd=[]
+    for i in range(firstday.weekday()):
+        wd.append(0)
+    context = {
+        'days': days,
+        'today':today,
+        'monthrange': monthrange,
+        'startday': wd,
+        'month': get_month_name(firstday.month),
+        'year': firstday.year,
+    }
+    return context    
+    
+def get_first_day(month_delta):
+    fd = jdatetime.date.today()
+    month_delta = int(month_delta)
+    if month_delta>0:
+        for i in range(month_delta):
+            mr = get_month_range(fd)
+            fd += jdatetime.timedelta(days=mr)
+    if month_delta<0:
+        for i in range(abs(month_delta)):
+            mr = get_month_range(fd)
+            fd -= jdatetime.timedelta(days=mr)
+    fd = jdatetime.date(fd.year,fd.month, 1)
+    return fd
+
+def jdate_to_string(date):
+    return date.isoformat()
