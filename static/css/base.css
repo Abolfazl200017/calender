@@ -22,4 +22,7 @@
 .todo-item:hover{
     background-color: azure !important;
     color: rgb(32, 32, 32) !important;
-}   
+}
+.todo-body textarea{
+    width: 100%;
+}

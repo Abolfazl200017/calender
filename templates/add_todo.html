@@ -1,16 +1,16 @@
 {% extends 'base.html' %}
 
 {% block main %}
-    <form action="" method="POST" class="m-auto w-75 d-flex flex-column align-items-center justify-content-center">
+    <form action="" method="POST" class="m-auto p-2 p-md-5 mx-3 rounded-2 d-flex flex-column align-items-center justify-content-center bg-body-tertiary">
         {% csrf_token %}
         {{ form.non_field_errors }}
         <div class="fieldWrapper w-100 mb-3">
             {{ form.title.errors }}
             <div class="row mx-auto">
-                <div class="col-12 col-md-4 mb-2 text-center text-md-end text-white">
+                <div class="col-12 col-md-3 mb-2 text-center text-md-end text-white">
                     <label for="{{ form.title.id_for_label }}">عنوان :</label>
                 </div>
-                <div class="col-12 col-md-8 form-input d-flex justify-content-center justify-content-md-start px-auto">
+                <div class="col-12 col-md-9 form-input d-flex justify-content-center justify-content-md-start px-auto">
                     {{ form.title }}
                 </div>
             </div>
@@ -18,10 +18,10 @@
         <div class="fieldWrapper w-100 mb-3">
             {{ form.body.errors }}
             <div class="row mx-auto">
-                <div class="col-12 col-md-4 mb-2 text-center text-md-end text-white">
+                <div class="col-12 col-md-3 mb-2 text-center text-md-end text-white">
                     <label for="{{ form.body.id_for_label }}">توضیحات :</label>
                 </div>
-                <div class="col-12 col-md-8 form-input d-flex justify-content-center justify-content-md-start px-auto">
+                <div class="col-12 col-md-9 form-input d-flex justify-content-center justify-content-md-start px-auto todo-body">
                     {{ form.body }}
                 </div>
             </div>
@@ -29,10 +29,10 @@
         <div class="fieldWrapper w-100 mb-3">
             {{ form.private.errors }}
             <div class="row mx-auto">
-                <div class="col-12 col-md-4 mb-2 text-center text-md-end text-white">
+                <div class="col-12 col-md-3 mb-2 text-center text-md-end text-white">
                     <label for="{{ form.private.id_for_label }}">شخصی :</label>
                 </div>
-                <div class="col-12 col-md-8 form-input d-flex justify-content-center justify-content-md-start px-auto">
+                <div class="col-12 col-md-9 form-input d-flex justify-content-center justify-content-md-start px-auto">
                     {{ form.private }}
                 </div>
             </div>
@@ -40,10 +40,10 @@
         <div class="fieldWrapper w-100 mb-3">
             {{ form.exepts.errors }}
             <div class="row mx-auto">
-                <div class="col-12 col-md-4 mb-2 text-center text-md-end text-white">
+                <div class="col-12 col-md-3 mb-2 text-center text-md-end text-white">
                     <label for="{{ form.exepts.id_for_label }}">قابل مشاهده برای :</label>
                 </div>
-                <div class="col-12 col-md-8 form-input d-flex justify-content-center justify-content-md-start px-auto">
+                <div class="col-12 col-md-9 form-input d-flex justify-content-center justify-content-md-start px-auto">
                     {{ form.exepts }}
                 </div>
             </div>
