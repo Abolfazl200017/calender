@@ -12,6 +12,7 @@ def callist(request, user_name, month_delta):
     if user is not None:
         context = utils.get_cal(month_delta)
         context['user_name']= user_name
+        context['month_delta']= month_delta
         return render(request, 'cal.html', context=context)
     else:
         return redirect('home')    
@@ -29,9 +30,9 @@ def get_jdate(date):
 def get_title(request, userid, date, i):
     todo = Todo.objects.filter(user=userid, date=date, time=i).first()
     if todo is None:
-        title = 'برنامه‌ای ثبت نشده است'
+        title = '<خالی>'
     else:
-        if todo.private and ((request.user.id==userid) or (request.user in todo.exepts.all())):
+        if not todo.private or request.user.id==userid or request.user in todo.exepts.all():
             title = todo.title
         else:
             title = 'برنامه شخصی'

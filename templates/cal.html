@@ -1,18 +1,49 @@
 {% extends 'base.html' %}
 
 {% block main %}
-<h1 class="mx-auto text-white text text-center mt-1 display-6 d-flex align-items-center justify-content-center">
-  {{ month }} {{ year }}
-   - 
-  {{ user_name }}
-</h1>
-<div class="d-flex justify-content-center w-100 container-xxl my-5">
+<div class="d-flex align-items-cneter justify-content-center mt-3">
+  <a href="{% url 'cal' user_name  month_delta|add:-1 %}" class="text-white text-decoration-none d-flex align-items-center">
+    ماه قبلی
+  </a>
+  <h1 class="mx-3 text-white text text-center display-6 d-flex align-items-center justify-content-center">
+    {{ month }} {{ year }}
+     - 
+    {{ user_name }}
+  </h1>
+  <a href="{% url 'cal' user_name  month_delta|add:1 %}" class="text-white text-decoration-none d-flex align-items-center">
+    ماه بعدی
+  </a>
+</div>
+<div class="d-flex flex-column align-items-center w-100 container-xxl my-3">
+  <ul class="w-75 mx-auto rounded-2 overflow-hidden mb-2 d-flex align-items-center justify-content-between border border-end-0">
+    <li class="d-flex align-items-center justify-content-center bg-dark text-white py-3 border-end" style="width: 14.28%;">
+      شنبه
+    </li>
+    <li class="d-flex align-items-center justify-content-center bg-dark text-white py-3 border-end" style="width: 14.28%;">
+      یکشنبه
+    </li>
+    <li class="d-flex align-items-center justify-content-center bg-dark text-white py-3 border-end" style="width: 14.28%;">
+      دوشنبه
+    </li>
+    <li class="d-flex align-items-center justify-content-center bg-dark text-white py-3 border-end" style="width: 14.28%;">
+      سه‌شنبه
+    </li>
+    <li class="d-flex align-items-center justify-content-center bg-dark text-white py-3 border-end" style="width: 14.28%;">
+      چهارشنبه
+    </li>
+    <li class="d-flex align-items-center justify-content-center bg-dark text-white py-3 border-end" style="width: 14.28%;">
+      پنج‌شنبه
+    </li>
+    <li class="d-flex align-items-center justify-content-center bg-dark text-white py-3 border-end" style="width: 14.28%;">
+      جمعه
+    </li>
+  </ul>
   <div class="w-75 border-start border-top d-flex flex-wrap bg-dark">
       {% for day in startday %}
       <div class="date-block border-end border-bottom"></div>
       {% endfor %}
       {% for day in days %}
-      <a class="date-block border-end border-bottom text-decoration-none text-white {% if day.is_today %}bg-info{% endif %} {% if day.is_prev %}opacity-50{% endif %}" href="{{ day.date }}">
+      <a class="date-block border-end border-bottom text-decoration-none text-white {% if day.is_today %}bg-info{% endif %} {% if day.is_prev %}opacity-50{% endif %}" href="{% url 'date' user_name day.date %}">
         {{ day.date.day }}
       </a>
       {% endfor %}

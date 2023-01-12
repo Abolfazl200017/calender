@@ -13,7 +13,7 @@ def search_bar(request):
         cd = request.POST['searched']
         user = User.objects.filter(username=cd).first()
         if user is not None:
-            return redirect('cal', cd)
+            return redirect('cal', cd, '0')
         else:
             messages.error(request, 'کاربری با نام وارد شده وجود ندارد.', '❌')
             return redirect('home')
@@ -22,6 +22,6 @@ def search_bar(request):
 
 def go_home(request):
     if request.user.is_authenticated:
-        return redirect('cal', str(request.user.username))
+        return redirect('cal', str(request.user.username), str(0))
     else:
         return redirect('login')
