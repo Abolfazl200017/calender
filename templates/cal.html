@@ -12,7 +12,7 @@
       <div class="date-block border-end border-bottom"></div>
       {% endfor %}
       {% for day in days %}
-      <a class="date-block border-end border-bottom text-decoration-none text-white" href="{{ day.date }}">
+      <a class="date-block border-end border-bottom text-decoration-none text-white {% if day.is_today %}bg-info{% endif %} {% if day.is_prev %}opacity-50{% endif %}" href="{{ day.date }}">
         {{ day.date.day }}
       </a>
       {% endfor %}
