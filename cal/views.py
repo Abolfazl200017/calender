@@ -21,7 +21,7 @@ def get_jdate(date):
     today = jdatetime.datetime.strptime(date, '%Y-%m-%d').date()
     jdate = {}
     days = ['شنبه', 'یکشنبه', 'دوشنبه', 'سه‌شنبه', 'چهارشنبه', 'پنجشنبه', 'جمعه']
-    jdate['weekday'] = days[today.weekday() -1] 
+    jdate['weekday'] = days[today.weekday()] 
     months=['فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور', 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند']
     jdate['month']=months[today.month - 1]
     jdate['day']=today.day
